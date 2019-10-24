@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
