@@ -12,6 +12,7 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+Vue.component('example', require('./components/Example.vue').default);
 
 //Vue.use(VueRouter);
 
