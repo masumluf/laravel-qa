@@ -1892,11 +1892,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
-      axios.post('/api/auth/login', this.form).then(function (res) {
-        return console.log(res);
-      })["catch"](function (error) {
-        return console.log(error);
-      });
+      User.login(this.form);
     }
   }
 });
@@ -72095,6 +72091,74 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/LocalStorage/lstore.js":
+/*!*********************************************!*\
+  !*** ./resources/js/LocalStorage/lstore.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var LocalAppStore =
+/*#__PURE__*/
+function () {
+  function LocalAppStore() {
+    _classCallCheck(this, LocalAppStore);
+  }
+
+  _createClass(LocalAppStore, [{
+    key: "setToken",
+    value: function setToken(token) {
+      localStorage.setItem('token', token);
+    }
+  }, {
+    key: "setUser",
+    value: function setUser(user) {
+      localStorage.setItem('user', user);
+    }
+  }, {
+    key: "store",
+    value: function store(user, token) {
+      this.setToken(token);
+      this.setUser(user);
+    }
+  }, {
+    key: "getToken",
+    value: function getToken() {
+      return localStorage.getItem('token');
+    }
+  }, {
+    key: "getUser",
+    value: function getUser() {
+      return localStorage.getItem('user');
+    }
+  }, {
+    key: "logdata",
+    value: function logdata() {
+      console.log("working");
+    }
+  }, {
+    key: "clearItem",
+    value: function clearItem() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
+  }]);
+
+  return LocalAppStore;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (LocalAppStore = new LocalAppStore());
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -72112,6 +72176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_router_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue-router/router */ "./resources/js/vue-router/router.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
+/* harmony import */ var _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./LocalStorage/lstore */ "./resources/js/LocalStorage/lstore.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -72121,8 +72187,14 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_2___default.a);
 
 
+
+
+window.User = _helpers_User__WEBPACK_IMPORTED_MODULE_5__["default"];
+console.log(_helpers_User__WEBPACK_IMPORTED_MODULE_5__["default"].logedIn());
 window.axios = axios__WEBPACK_IMPORTED_MODULE_4___default.a;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.Appstore = _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_6__["default"]; //Appstore.logdata();
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example', __webpack_require__(/*! ./components/Example.vue */ "./resources/js/components/Example.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -72409,6 +72481,165 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/helpers/User.js":
+/*!**************************************!*\
+  !*** ./resources/js/helpers/User.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _token_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../token/token */ "./resources/js/token/token.js");
+/* harmony import */ var _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../LocalStorage/lstore */ "./resources/js/LocalStorage/lstore.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+var User =
+/*#__PURE__*/
+function () {
+  function User() {
+    _classCallCheck(this, User);
+  }
+
+  _createClass(User, [{
+    key: "login",
+    value: function login(form) {
+      var _this = this;
+
+      axios.post('/api/auth/login', form).then(function (res) {
+        return _this.responseAfterLogin(res);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }, {
+    key: "responseAfterLogin",
+    value: function responseAfterLogin(res) {
+      var access_token = res.data.access_token;
+      var username = res.data.username;
+      var result = _token_token__WEBPACK_IMPORTED_MODULE_0__["default"].isValidToken(access_token); //Token.payload(res)
+
+      console.log(res.data);
+
+      if (_token_token__WEBPACK_IMPORTED_MODULE_0__["default"].isValidToken(access_token)) {
+        _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_1__["default"].store(username, access_token);
+      } else {
+        console.log("something is worng..");
+      }
+    }
+  }, {
+    key: "hasToken",
+    value: function hasToken() {
+      var storedToken = _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_1__["default"].getToken();
+
+      if (storedToken) {
+        return _token_token__WEBPACK_IMPORTED_MODULE_0__["default"].isValidToken(storedToken) ? true : false;
+      }
+
+      return false;
+    }
+  }, {
+    key: "logedIn",
+    value: function logedIn() {
+      return this.hasToken();
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_1__["default"].clearItem();
+    }
+  }, {
+    key: "getUserName",
+    value: function getUserName() {
+      if (this.logedIn()) {
+        return _LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_1__["default"].getUser();
+      }
+    }
+  }, {
+    key: "getUserId",
+    value: function getUserId() {
+      if (this.logedIn()) {
+        var payload = _token_token__WEBPACK_IMPORTED_MODULE_0__["default"].payload(_LocalStorage_lstore__WEBPACK_IMPORTED_MODULE_1__["default"].getToken());
+        console.log(payload.sub);
+      }
+    }
+  }]);
+
+  return User;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (User = new User());
+
+/***/ }),
+
+/***/ "./resources/js/token/token.js":
+/*!*************************************!*\
+  !*** ./resources/js/token/token.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Token =
+/*#__PURE__*/
+function () {
+  function Token() {
+    _classCallCheck(this, Token);
+  }
+
+  _createClass(Token, [{
+    key: "payload",
+    value: function payload(token) {
+      //console.log(token + "ok"); working
+      var payload = token.split('.')[1];
+      return this.decode(payload);
+    }
+  }, {
+    key: "decode",
+    value: function decode(payload) {
+      return JSON.parse(atob(payload));
+    }
+  }, {
+    key: "isValidToken",
+    value: function isValidToken(token) {
+      // console.log(token); working
+      var payload = this.payload(token);
+
+      if (payload) {
+        //console.log('done');
+        return payload.iss == "http://127.0.0.1:8000/api/auth/login" || "http://127.0.0.1:8000/api/auth/login" ? true : false;
+      }
+
+      return false;
+    }
+  }, {
+    key: "logdata",
+    value: function logdata() {
+      console.log("working");
+    }
+  }]);
+
+  return Token;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Token = new Token());
+
+/***/ }),
+
 /***/ "./resources/js/vue-router/router.js":
 /*!*******************************************!*\
   !*** ./resources/js/vue-router/router.js ***!
@@ -72455,8 +72686,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\localhost\laravel-qa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\localhost\laravel-qa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! c:\localhost\laravel-qa\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! c:\localhost\laravel-qa\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

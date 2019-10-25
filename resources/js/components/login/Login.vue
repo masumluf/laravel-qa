@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -21,13 +22,12 @@ export default {
         password: ''
       }
     }
-  },
+  }, 
   methods: {
     login() {
-      axios.post('/api/auth/login', this.form)
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
+      User.login(this.form)
     }
+
   },
 }
 
