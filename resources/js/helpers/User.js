@@ -13,7 +13,7 @@ class User {
         const result = Token.isValidToken(access_token)
 
         //Token.payload(res)
-        console.log(res.data);
+        //console.log(res.data);
 
         if (Token.isValidToken(access_token)) {
             LocalAppStore.store(username, access_token)
@@ -43,7 +43,7 @@ class User {
     getUserId() {
         if (this.logedIn()) {
             const payload = Token.payload(LocalAppStore.getToken());
-            console.log(payload.sub);
+            return payload;
         }
     }
 }

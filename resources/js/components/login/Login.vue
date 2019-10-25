@@ -8,6 +8,9 @@
       <v-checkbox label="Do you agree?"></v-checkbox>
 
       <v-btn color="warning" type="submit">Login</v-btn>
+      <router-link to="/signup">
+        <v-btn color="success">Sign Up</v-btn>
+      </router-link>
     </v-form>
   </v-container>
 </template>
@@ -22,10 +25,11 @@ export default {
         password: ''
       }
     }
-  }, 
+  },
   methods: {
     login() {
       User.login(this.form)
+      this.$router.push({ name: 'mainPage' })
     }
 
   },

@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <router-link to="/">
+        <router-link to="/main">
           <v-btn text>Home</v-btn>
         </router-link>
         <router-link to="/question">

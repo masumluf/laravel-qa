@@ -1,0 +1,5 @@
+<template>
+  <div class="container">
+    <h1>Welcome back</h1>
+  </div>
+</template>
