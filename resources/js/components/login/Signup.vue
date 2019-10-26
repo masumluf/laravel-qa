@@ -49,6 +49,11 @@ export default {
         })
         .catch(error => this.errors = error.response.data.errors)
     }
+  },
+  created() {
+    if (User.logedIn()) {
+      this.$router.push({ name: 'mainPage' })
+    }
   }
 }
 </script>

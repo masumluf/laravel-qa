@@ -33,6 +33,11 @@ export default {
     }
 
   },
+  created() {
+    if (User.logedIn()) {
+      this.$router.push({ name: 'mainPage' })
+    }
+  }
 }
 
 </script>

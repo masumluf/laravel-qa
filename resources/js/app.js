@@ -15,6 +15,8 @@ import LocalAppStorage from './LocalStorage/lstore';
 window.User = User;
 console.log(User.logedIn());
 
+window.EventBus = new Vue()
+
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

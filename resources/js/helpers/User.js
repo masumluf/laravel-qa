@@ -17,6 +17,8 @@ class User {
 
         if (Token.isValidToken(access_token)) {
             LocalAppStore.store(username, access_token)
+            window.location = '/'
+
         } else {
             console.log("something is worng..");
         }
@@ -34,6 +36,7 @@ class User {
     }
     logout() {
         LocalAppStore.clearItem();
+        window.location = '/';
     }
     getUserName() {
         if (this.logedIn()) {
