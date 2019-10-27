@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items v-for="item in items">
-        <router-link :key="item.title" :to="item.to" v-if="item.show">
+        <router-link  :to="item.to" v-if="item.show">
           <v-btn text>{{item.title}}</v-btn>
         </router-link>
       </v-toolbar-items>
@@ -22,7 +22,7 @@ export default {
       }, {
         title: 'Question', to: '/question', show: User.logedIn()
       }, {
-        title: 'Category', to: '/category', show: User.logedIn()
+        title: 'Category', to: '/calculation', show: User.logedIn()
       },
       {
         title: 'Login', to: '/login', show: !User.logedIn()

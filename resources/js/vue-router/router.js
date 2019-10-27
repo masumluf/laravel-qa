@@ -8,6 +8,8 @@ import signup from '../components/login/Signup'
 import mainPage from '../components/main/Main'
 import cal from '../components/calculation/Cal'
 import logout from '../components/login/Logout'
+import readq from '../components/main/readq'
+import makequestion from "../components/main/MakeQuestion";
 
 const routes = [{
         path: '/login',
@@ -30,6 +32,15 @@ const routes = [{
     {
         path: '/logout',
         component: logout,
+
+    },
+    {
+        path: '/question/:slug',
+        component: readq,
+
+    }, {
+        path: '/question',
+        component: makequestion,
 
     }
 ]

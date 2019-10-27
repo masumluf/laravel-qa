@@ -2,23 +2,23 @@
   <div>
     <v-container>
       <form @submit.prevent="submit">
-        <div v-for="(id,i) in student_id" class="pa-3">
-          <span class="blue--text">{{id.name}}</span>
+        <div v-for="(student,i) in students" class="pa-3">
+          <span class="blue--text">{{student.name}}</span>
           <br />
-          <input type="radio" :name="id.name+i" v-model="info" :value="`${id.student_id}-P`" />
+          <input type="radio" :name="student.name" v-model="student.attendance" value="P" />
           Present
           <input
             type="radio"
-            v-model="info"
-            :name="id.name+i"
-            :value="`${id.student_id}-A`"
+            :name="student.name"
+            v-model="student.attendance"
+            value="A"
           />
           Absent
           <input
             type="radio"
-            v-model="info"
-            :name="id.name+i"
-            :value="`${id.student_id}-L`"
+            :name="student.name"
+            v-model="student.attendance"
+            value="L"
           />
           Late
           <hr />
@@ -34,21 +34,33 @@
 export default {
   data() {
     return {
-      info: [],
-      student_id: [
-        { name: 'Andrew', student_id: '52346' },
-        { name: 'Mathew', student_id: '86975' },
-        { name: 'Max', student_id: '78654' },
-        { name: 'Jhon', student_id: '36589' },
-        { name: 'Flam', student_id: '74859' },
-        { name: 'Meli', student_id: '62398' }
+      info: {
+        name: [],
+        student_id: [],
+        attendance: []
+      },
+      students: [{ name: 'Andrew', student_id: '52346', attendance: '' },
+      { name: 'Mathew', student_id: '86975', attendance: '' },
+      { name: 'Max', student_id: '78654', attendance: '' },
+      { name: 'Jhon', student_id: '36589', attendance: '' },
+      { name: 'Flam', student_id: '74859', attendance: '' },
+      { name: 'Meli', student_id: '62398', attendance: '' }
       ]
     }
   },
   methods: {
     submit() {
-      console.log(this.info)
+      this.students.forEach((item) => {
+        // console.log(item.name);
+        // console.log(item.student_id);
+        // console.log(item.attendance);
+        this.info.name.push(item.name);
+        this.info.student_id.push(item.student_id);
+        this.info.attendance.push(item.attendance)
+      })
+      console.log(this.info);
     }
   }
+
 }
 </script>

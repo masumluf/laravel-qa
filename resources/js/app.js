@@ -11,6 +11,7 @@ import router from './vue-router/router'
 import axios from 'axios';
 import User from './helpers/User';
 import LocalAppStorage from './LocalStorage/lstore';
+import VueSimplemde from 'vue-simplemde'
 
 window.User = User;
 console.log(User.logedIn());
@@ -28,6 +29,7 @@ window.Appstore = LocalAppStorage;
 
 
 Vue.component('example', require('./components/Example.vue').default);
+Vue.component('vue-simplemde', VueSimplemde);
 
 Vue.use(VueRouter);
 
