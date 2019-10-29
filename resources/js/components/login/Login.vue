@@ -29,13 +29,13 @@ export default {
   methods: {
     login() {
       User.login(this.form)
-      this.$router.push({ name: 'mainPage' })
+      this.$router.push('/main')
     }
 
   },
   created() {
     if (User.logedIn()) {
-      this.$router.push({ name: 'mainPage' })
+      this.$router.push('/main')
     }
   }
 }

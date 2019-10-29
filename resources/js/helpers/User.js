@@ -46,8 +46,11 @@ class User {
     getUserId() {
         if (this.logedIn()) {
             const payload = Token.payload(LocalAppStore.getToken());
-            return payload;
+            return payload.sub;
         }
+    }
+    own(id) {
+        return this.getUserId() == id;
     }
 }
 
