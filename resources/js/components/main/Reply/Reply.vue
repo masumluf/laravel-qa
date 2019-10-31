@@ -3,19 +3,21 @@
     <v-card>
       <v-card-title>
         <div class="headline">{{data.user}}</div>
-        <div class="ml-2">said {{data.created_at}}</div>
-        <v-spacer></v-spacer>
-        <div class="caption">{{data.body}}</div>
+        <div>
+          <div class="ml-2">said {{data.created_at}}</div>
+          <v-spacer></v-spacer>
+        </div>
+
         <!--<like :content="data"></like> -->
       </v-card-title>
+      <edit-reply v-if="editing" :reply="data"></edit-reply>
+      <div class="caption mt-2 pl-5" v-else>
+        <p>{{body}}</p>
+      </div>
       <v-divider></v-divider>
 
-      <!--  <edit-reply v-if="editing" :reply="data"></edit-reply>
-
-      <v-card-text v-else v-html="reply"></v-card-text>-->
-
       <v-divider></v-divider>
-      <div>
+      <div v-if="!editing">
         <v-card-actions v-if="own">
           <v-btn icon small @click="edit">
             <v-icon color="orange">edit</v-icon>
@@ -29,13 +31,39 @@
   </div>
 </template>
 <script>
-
+import EditReply from "./EditReply";
 export default {
-  props: ['data'],
+  props: ['data', 'index'],
+  data() {
+    return {
+      editing: false,
+      body: this.data.body
+    }
+  },
+  methods: {
+    edit() {
+      this.editing = true
+    },
+    destroy() {
+      EventBus.$emit('delete', this.index)
+    },
+    listen() {
+      EventBus.$on('cancel', () => {
+        this.editing = false
+      })
+
+    }
+
+  },
   computed: {
     own() {
       return User.own(this.data.user_id)
     }
+  }, created() {
+    this.listen()
+  },
+  components: {
+    EditReply
   }
 }
 </script>

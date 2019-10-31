@@ -1,8 +1,8 @@
 <template>
   <div>
     <singlequestion v-if="fullquestion.user_id" :question="fullquestion"></singlequestion>
-    <replies :replies="fullquestion.replies"></replies>
-    <new-reply></new-reply>
+    <replies :question="fullquestion" v-if="fullquestion.replies"></replies>
+    <new-reply :data="fullquestion.slug"></new-reply>
   </div>
 </template>
 <script>

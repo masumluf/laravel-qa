@@ -1,7 +1,7 @@
 <template>
   <div>
     <editingquestion v-if="editRules" :data="question"></editingquestion>
-    <v-banner two-line v-else>
+    <v-banner two-line v-else class="mt-5">
       <v-avatar slot="icon" color="deep-purple accent-4" size="40">
         <v-icon icon="mdi-lock" color="black"></v-icon>
       </v-avatar>
