@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
         $category->save();
-        return response()->json('saved', 200);
+        return response()->json(new CategoryResource($category), 200);
     }
 
     /**
@@ -76,7 +76,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
-        return response()->json('Updated', 200);
+        return response()->json(new CategoryResource($category), 200);
     }
 
     /**

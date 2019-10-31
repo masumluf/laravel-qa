@@ -3,12 +3,16 @@
     <v-layout row wrap>
       <v-flex xs8>
         <question v-for="question in questions" :key="question.path" :question="question"></question>
-      </v-flex>sidebar
+      </v-flex>
+      <v-flex xs4>
+        <category-sidebar></category-sidebar>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 <script>
 import question from "./question";
+import CategorySidebar from "./CategorySidebar";
 export default {
   data() {
     return {
@@ -16,7 +20,7 @@ export default {
     }
   },
   components: {
-    question
+    question, CategorySidebar
   },
   created() {
     axios.get('/api/question')

@@ -15,6 +15,7 @@
           <v-btn dark @click="deleteQuestion">
             <v-icon>delete</v-icon>
           </v-btn>
+          {{reply}}Replies
         </v-card-actions>
       </template>
     </v-banner>
@@ -31,7 +32,8 @@ export default {
     return {
       dialog: false,
       own: User.own(this.question.user_id),
-      editRules: false
+      editRules: false,
+      reply: 5
     }
   },
   created() {

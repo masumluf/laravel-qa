@@ -10,6 +10,7 @@ import cal from '../components/calculation/Cal'
 import logout from '../components/login/Logout'
 import readq from '../components/main/readq'
 import makequestion from "../components/main/MakeQuestion";
+import CreateCategory from "../components/Category/CreateCategory";
 
 const routes = [{
         path: '/login',
@@ -42,9 +43,16 @@ const routes = [{
         path: '/question',
         component: makequestion,
 
+    },
+    {
+        path: '/category',
+        component: CreateCategory,
+
     }
 ]
 const router = new VueRouter({
+    mode: 'history',
+    hashbang: false,
     routes
 })
 

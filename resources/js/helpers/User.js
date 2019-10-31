@@ -17,7 +17,7 @@ class User {
 
         if (Token.isValidToken(access_token)) {
             LocalAppStore.store(username, access_token)
-            window.location = '/'
+            window.location = '/main'
 
         } else {
             console.log("something is worng..");
@@ -36,7 +36,7 @@ class User {
     }
     logout() {
         LocalAppStore.clearItem();
-        window.location = '/';
+        window.location = '/main';
     }
     getUserName() {
         if (this.logedIn()) {
@@ -52,6 +52,10 @@ class User {
     own(id) {
         return this.getUserId() == id;
     }
+    admin() {
+        return this.getUserId() == 15
+    }
+
 }
 
 export default User = new User();
