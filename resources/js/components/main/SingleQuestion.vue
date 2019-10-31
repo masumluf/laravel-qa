@@ -7,6 +7,9 @@
       </v-avatar>
       <p>{{question.title}}</p>
       {{question.body}}
+      <div class="my-2">
+        <v-btn large color="error">Total ({{question.total_reply}}) Replies</v-btn>
+      </div>
       <template v-slot:actions>
         <v-card-actions v-if="own">
           <v-btn dark @click="editQu">
@@ -15,7 +18,6 @@
           <v-btn dark @click="deleteQuestion">
             <v-icon>delete</v-icon>
           </v-btn>
-          {{reply}}Replies
         </v-card-actions>
       </template>
     </v-banner>
@@ -33,7 +35,6 @@ export default {
       dialog: false,
       own: User.own(this.question.user_id),
       editRules: false,
-      reply: 5
     }
   },
   created() {

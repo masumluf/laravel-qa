@@ -12,7 +12,7 @@
 
       <v-divider></v-divider>
       <v-list nav dense>
-        <v-list-item-group v-model="item" color="primary">
+        <v-list-item-group color="primary">
           <v-list-item v-for="(category, i) in categories" :key="i">
             <v-list-item-icon>
               <v-icon>mdi-account-multiple</v-icon>

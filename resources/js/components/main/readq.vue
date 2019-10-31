@@ -1,11 +1,15 @@
 <template>
   <div>
     <singlequestion v-if="fullquestion.user_id" :question="fullquestion"></singlequestion>
+    <replies :replies="fullquestion.replies"></replies>
+    <new-reply></new-reply>
   </div>
 </template>
 <script>
 import singlequestion from "./SingleQuestion";
 import editingquestion from "./editingquestion";
+import Replies from "./Reply/Replies";
+import NewReply from "./Reply/NewReply";
 export default {
   data() {
     return {
@@ -17,7 +21,9 @@ export default {
   },
   components: {
     singlequestion,
-    editingquestion
+    editingquestion,
+    Replies,
+    NewReply
   },
   methods: {
     getQuestion() {

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Question;
+use App\Model\Reply;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -20,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name', 'email', 'password',
     ];
+    //protected $with = ['replies'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -42,6 +44,10 @@ class User extends Authenticatable implements JWTSubject
     public function question()
     {
         return $this->hasMany(Question::class);
+    }
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function getJWTIdentifier()
