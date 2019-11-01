@@ -15,6 +15,8 @@
         <p>{{body}}</p>
       </div>
       <v-divider></v-divider>
+      <like :data="data"></like>
+      <v-divider></v-divider>
 
       <v-divider></v-divider>
       <div v-if="!editing">
@@ -32,6 +34,7 @@
 </template>
 <script>
 import EditReply from "./EditReply";
+import Like from "../Like/Like";
 export default {
   props: ['data', 'index'],
   data() {
@@ -63,7 +66,7 @@ export default {
     this.listen()
   },
   components: {
-    EditReply
+    EditReply, Like
   }
 }
 </script>

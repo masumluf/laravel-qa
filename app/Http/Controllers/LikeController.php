@@ -15,14 +15,13 @@ class LikeController extends Controller
     public function likeit(Reply $reply)
     {
         $reply->like()->create([
-            'user_id' => '5'
+            'user_id' => auth()->id()
         ]);
         return response()->json('Liked', 200);
     }
 
     public function unlikeit(Reply $reply)
     {
-        $reply->like()->where('user_id', '5')->first()->delete();
-        return response()->json('Un-Liked', 200);
+        $reply->like()->where('user_id', auth()->id())->first()->delete();
     }
 }
